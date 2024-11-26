@@ -1,3 +1,7 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +39,80 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Header {
+  background-color: rgb(118, 65, 134);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+
+  padding: 0.75cm;
+  font-size: large;
+}
+
+.App-header-text {
+  margin: 1%;
+  padding: 0.5%;
+  border: 0;
+  background-color: rgb(140, 36, 172);
+  border-radius: 4px;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+}
+
+.regitertion {
+  background-color: rgb(140, 36, 172);
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+.component {
+  display: flex;
+}
+
+.text {
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(112, 62, 158);
+}
+.App-link {
+  box-sizing: border-box;
+  display: block;
+  height: 64px;
+  margin-left: 0px;
+  margin-right: 0px;
+  max-width: 1280px;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 800.8px;
+  border-bottom-style: solid;
+  border-bottom: #282c34;
+}
+.one {
+  border-style: inset;
+  border-color: rgb(140, 36, 172);
+  width: 300px;
+  height: 300px;
+  margin: 1.5cm;
+  padding: 1.5cm;
+}
+.one-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo.png {
+  width: 20%;
+}
+
+.main {
+  align-items: start;
+}
+
+.regitertion-box {
 }

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getAllUsers } from "../api/auth";
 
-const User = () => {
+const Transaction = () => {
   const { data: users } = useQuery({
     queryKey: ["users"],
     queryFn: getAllUsers,
@@ -37,4 +37,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Transaction;

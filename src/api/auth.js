@@ -2,6 +2,7 @@ import instance from "./api";
 import { setToken } from "./storage";
 
 const register = async (formData) => {
+  console.log("formData", formData);
   const data = await instance.post("/mini-project/api/auth/register", formData);
   localStorage.setItem("token", data.token);
   console.log("register data", data);

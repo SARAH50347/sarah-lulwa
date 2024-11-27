@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../logo.png";
 import { register } from "../api/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -13,9 +14,14 @@ const Register = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
-    // e.preventDefault();
-    // Add register logic here
+  const { mutate } = useMutation({
+    mutationKey: ["register"],
+    mutationFn: () => register(userInfo),
+  });
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    mutate();
   };
 
   return (
@@ -29,15 +35,15 @@ const Register = () => {
           <form onSubmit={handleFormSubmit}>
             <div className="">
               <label
-                htmlFor="name"
+                htmlFor="username"
                 className="block text-white text-sm font-medium mb-2"
               >
                 Name
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id="username"
+                name="username"
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -70,12 +76,11 @@ const Register = () => {
                 Profile Image
               </label>
               <input
-                type="file"
+                type="text"
                 id="image"
                 name="image"
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                required
               />
             </div>
             <div className="flex justify-center">

@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import User from "./pages/Users";
+import Home2 from "./pages/Home2";
+import Profile from "./pages/Profile";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -28,6 +30,22 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/Home",
+        element: <Home2 />,
+      },
+      {
+        path: "/Users",
+        element: <User />,
+      },
+      {
+        path: "/Profile",
+        element: <Profile />,
+      },
+      {
+        path: "/Transaction",
+        element: <Transaction />,
       },
     ],
   },

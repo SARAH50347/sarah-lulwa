@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import logo from "../logo.png";
-
+import { login } from "../api/auth";
+import { useMutation } from "@tanstack/react-query";
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
 
   const handleChange = (e) => {
-    setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (e.target.name === "image") {
+      setUserInfo({ ...userInfo, [e.target.name]: e.target.files[0] });
+    } else {
+      setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    }
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // Add login logic here
+  const { mutate } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: () => login(userInfo),
+  });
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    mutate();
+    onSuccess: () => {
+      setUser();
   };
 
   return (
@@ -26,15 +38,15 @@ const Login = () => {
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
                 <label
-                  htmlFor="name"
+                  htmlFor="username"
                   className="block text-white text-sm font-medium mb-2"
                 >
                   Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
+                  id="username"
+                  name="username"
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
@@ -75,3 +87,23 @@ const Login = () => {
 };
 
 export default Login;
+
+// const [userInfo, setUserInfo] = useState({});
+
+// const handleChange = (e) => {
+//   setUserInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+// };
+
+// const handleFormSubmit = (e) => {
+//   e.preventDefault();
+//   // Add login logic here
+//   const { mutate } = useMutation({
+//     mutationKey: ["login"],
+//     mutationFn: () => login(userInfo),
+//   });
+
+//   const handleFormSubmit = (event) => {
+//     event.preventDefault();
+//     mutate();
+//   };
+// };

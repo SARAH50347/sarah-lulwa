@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import logo from "../logo.png";
 import { login } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 const Login = () => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -13,17 +16,55 @@ const Login = () => {
     }
   };
 
+  // Mutation for login
   const { mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
+    onSuccess: () => {
+      // Reset userInfo and navigate on success
+      setUserInfo({ username: "", password: "" });
+      navigate("/Home2");
+    },
+    onError: () => {
+      alert("Invalid credentials");
+    },
   });
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    mutate();
-    onSuccess: () => {
-      setUser();
+
+    mutate(); // Trigger the mutation
   };
+
+  // const [userInfo, setUserInfo] = useState({{ username: '', password: '' }});
+  // const navigate = useNavigate();
+  // const handleChange = (e) => {
+  //   if (e.target.name === "image") {
+  //     setUserInfo({ ...userInfo, [e.target.name]: e.target.files[0] });
+  //   } else {
+  //     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  //   }
+  // };
+
+  // const { mutate } = useMutation({
+  //   mutationKey: ["login"],
+  //   mutationFn: () => login(userInfo),
+  // });
+
+  // const isAuthenticated = authenticateUser();
+  // if (isAuthenticated) {
+  //   // Call success callback
+  //   onSuccess();
+  // } else {
+  //   alert('Invalid credentials'); // Handle error messages as needed
+  // }
+
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  //   mutate();
+  //   onSuccess: () => {
+  //     setUser({ username: '', password: '' });
+  //     navigate('/Home2');
 
   return (
     <div>
@@ -35,6 +76,17 @@ const Login = () => {
 
           <div className="max-w-md w-full px-6 py-8 bg-[#7D6EA9] rounded-md shadow-lg m-20">
             <h2 className="text-3xl text-white font-semibold mb-6">Login</h2>
+            <p className="block text-white text-sm font-medium mb-2">
+              If you don't have an account,{" "}
+              <Link
+                className="text-gray-800 underline hover:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                to="/Register"
+              >
+                {" "}
+                Register
+              </Link>
+              .
+            </p>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
                 <label
@@ -86,8 +138,6 @@ const Login = () => {
   );
 };
 
-export default Login;
-
 // const [userInfo, setUserInfo] = useState({});
 
 // const handleChange = (e) => {
@@ -107,3 +157,5 @@ export default Login;
 //     mutate();
 //   };
 // };
+
+export default Login;

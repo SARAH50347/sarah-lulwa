@@ -27,7 +27,7 @@ const User = () => {
                 <h3 className="text-lg text-white font-semibold mb-2">
                   {user.name}
                 </h3>
-                <p className="text-gray-300">{user.email}</p>
+                <p className="text-gray-300">{user.u}</p>
               </div>
             </div>
           ))}

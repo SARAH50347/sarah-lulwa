@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import logo from "../logo.png";
 import { register } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
-
+import { Link } from "react-router";
 const Register = () => {
   const [userInfo, setUserInfo] = useState({});
+
+  // const [query, setQuery] = useState("Register");
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -32,6 +34,17 @@ const Register = () => {
         </div>
         <div className="max-w-md w-full px-6 py-8 bg-gray-800 rounded-md shadow-lg m-20">
           <h2 className="text-3xl text-white font-semibold mb-6">Register</h2>
+          <p className="block text-white text-sm font-medium mb-2">
+            If you already have an account,{" "}
+            <Link
+              className="text-purple-400 underline hover:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              to="/login"
+            >
+              {" "}
+              login
+            </Link>
+            .
+          </p>
           <form onSubmit={handleFormSubmit}>
             <div className="">
               <label

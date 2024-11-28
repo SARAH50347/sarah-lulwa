@@ -6,8 +6,6 @@ import Nav from "./components/Nav";
 function App() {
   return (
     <div className="App font-mono ">
-      <Navbar />
-      <Nav />
       <Outlet />
     </div>
   );

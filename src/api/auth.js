@@ -1,5 +1,6 @@
 import instance from "./api";
 import { setToken } from "./storage";
+import React, { createContext, useContext, useState } from "react";
 
 const register = async (formData) => {
   console.log("formData", formData);
@@ -15,10 +16,10 @@ const login = async (formData) => {
   return data;
 };
 const getAllUsers = async () => {
-  const { data } = await instance.get("/mini-project/api/auth/users");
+  const data = await instance.get("/mini-project/api/auth/users");
   return data;
 };
-const profile = async () => {
+const getMyProfile = async () => {
   const { data } = await instance.get("/mini-project/api/auth/me");
   return data;
 };
@@ -30,12 +31,16 @@ const updateYourProfile = async () => {
   const { data } = await instance.get("/mini-project/api/auth/profile");
   return data;
 };
-
+const getUserInfo = async (User) => {
+  const res = await instance.get(`/mini-project/api/auth/user/${User}`);
+  return res.data;
+};
 export {
   login,
   register,
   getAllUsers,
-  profile,
+  getMyProfile,
   transaction,
   updateYourProfile,
+  getUserInfo,
 };

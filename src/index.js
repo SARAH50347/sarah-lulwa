@@ -11,7 +11,8 @@ import Register from "./pages/Register";
 import User from "./pages/Users";
 import Home2 from "./pages/Home2";
 import Profile from "./pages/Profile";
-import Transaction from "./pages/Transaction";
+
+//import Transaction from "./pages/Transaction";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -44,10 +45,10 @@ const router = createBrowserRouter([
         path: "/Profile",
         element: <Profile />,
       },
-      {
-        path: "/Transaction",
-        element: <Transaction />,
-      },
+      // {
+      //   path: "/Transaction",
+      //   element: <Transaction />,
+      // },
     ],
   },
 ]);

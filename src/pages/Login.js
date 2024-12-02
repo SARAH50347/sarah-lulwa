@@ -4,6 +4,7 @@ import { login } from "../api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+
 const Login = () => {
   const [userInfo, setUserInfo] = useState({ username: "", password: "" });
   const navigate = useNavigate();
@@ -16,12 +17,10 @@ const Login = () => {
     }
   };
 
-  // Mutation for login
   const { mutate } = useMutation({
     mutationKey: ["login"],
     mutationFn: () => login(userInfo),
     onSuccess: () => {
-      // Reset userInfo and navigate on success
       setUserInfo({ username: "", password: "" });
       navigate("/Home2");
     },
@@ -32,39 +31,8 @@ const Login = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
-    mutate(); // Trigger the mutation
+    mutate();
   };
-
-  // const [userInfo, setUserInfo] = useState({{ username: '', password: '' }});
-  // const navigate = useNavigate();
-  // const handleChange = (e) => {
-  //   if (e.target.name === "image") {
-  //     setUserInfo({ ...userInfo, [e.target.name]: e.target.files[0] });
-  //   } else {
-  //     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  //   }
-  // };
-
-  // const { mutate } = useMutation({
-  //   mutationKey: ["login"],
-  //   mutationFn: () => login(userInfo),
-  // });
-
-  // const isAuthenticated = authenticateUser();
-  // if (isAuthenticated) {
-  //   // Call success callback
-  //   onSuccess();
-  // } else {
-  //   alert('Invalid credentials'); // Handle error messages as needed
-  // }
-
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   mutate();
-  //   onSuccess: () => {
-  //     setUser({ username: '', password: '' });
-  //     navigate('/Home2');
 
   return (
     <div>
@@ -138,6 +106,38 @@ const Login = () => {
   );
 };
 
+export default Login;
+
+// const [userInfo, setUserInfo] = useState({{ username: '', password: '' }});
+// const navigate = useNavigate();
+// const handleChange = (e) => {
+//   if (e.target.name === "image") {
+//     setUserInfo({ ...userInfo, [e.target.name]: e.target.files[0] });
+//   } else {
+//     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+//   }
+// };
+
+// const { mutate } = useMutation({
+//   mutationKey: ["login"],
+//   mutationFn: () => login(userInfo),
+// });
+
+// const isAuthenticated = authenticateUser();
+// if (isAuthenticated) {
+//   // Call success callback
+//   onSuccess();
+// } else {
+//   alert('Invalid credentials'); // Handle error messages as needed
+// }
+
+// const handleFormSubmit = (event) => {
+//   event.preventDefault();
+//   mutate();
+//   onSuccess: () => {
+//     setUser({ username: '', password: '' });
+//     navigate('/Home2');
+
 // const [userInfo, setUserInfo] = useState({});
 
 // const handleChange = (e) => {
@@ -157,5 +157,3 @@ const Login = () => {
 //     mutate();
 //   };
 // };
-
-export default Login;

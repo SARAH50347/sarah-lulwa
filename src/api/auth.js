@@ -20,15 +20,15 @@ const getAllUsers = async () => {
   return data;
 };
 const getMyProfile = async () => {
-  const { data } = await instance.get("/mini-project/api/auth/me");
+  const data = await instance.get("/mini-project/api/auth/me");
   return data;
 };
 const transaction = async () => {
-  const { data } = await instance.get("/mini-project/api/transactions/my");
+  const data = await instance.get("/mini-project/api/transactions/my");
   return data;
 };
 const updateYourProfile = async () => {
-  const { data } = await instance.get("/mini-project/api/auth/profile");
+  const data = await instance.get("/mini-project/api/auth/profile");
   return data;
 };
 const getUserInfo = async (User) => {

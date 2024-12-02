@@ -1,53 +1,84 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getAllUsers } from "../api/auth";
-import Nav from "../components/Nav";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { transaction } from "../api/auth";
 const Transaction = () => {
+  const { user } = transaction();
   const {
-    data: users,
+    data: transactionsData,
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["users"],
-    queryFn: getAllUsers,
+    queryKey: ["transaction"],
+    queryFn: transaction,
   });
 
-  if (isLoading) {
-    return <div className="text-white">Loading users...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className="text-red-500">Error fetching users: {error.message}</div>
-    );
-  }
+  if (isLoading) return <div>Loading transactions...</div>;
+  if (error) return <div>Error fetching transactions: {error.message}</div>;
 
   return (
     <>
       <Nav />
-      <div className="bg-gray-900 min-h-screen h-screen flex items-center justify-center absolute inset-0 z-[-1]">
-        <div className="max-w-[90%] overflow-scroll w-full px-6 py-8 bg-gray-800 rounded-md shadow-md max-h-[80%]">
-          <h2 className="text-3xl text-white font-semibold mb-6 ">Users</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {users?.map((user) => (
-              <div
-                key={user.id}
-                className="bg-gray-700 p-6 rounded-md flex flex-col items-center justify-center"
-              >
-                <img
-                  src={user.image}
-                  alt="User"
-                  className="w-24 h-24 rounded-full mb-4"
-                />
-                <div className="text-center">
-                  <h3 className="text-lg text-white font-semibold mb-2">
-                    {user.name}
-                  </h3>
-                  <p className="text-gray-300">{user.email}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="bg-[#B1A8D5] ">
+        <div className="m-5 p-4">
+          <h2 className="text-xl font-bold">Transaction History</h2>
+          {transactions.length === 0 ? (
+            <p>No transactions found.</p>
+          ) : (
+            <table className="min-w-full border-collapse border border-gray-300">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Date
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Type
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Amount
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">
+                    Balance after Transaction
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transactionsData, index) => (
+                  <tr
+                    key={transactionsData.id}
+                    className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                  >
+                    <td className="border border-gray-300 px-4 py-2">
+                      {new Date(
+                        transactionsData.createdAt
+                      ).toLocaleDateString()}
+                    </td>
+                    <td
+                      className={`border border-gray-300 px-4 py-2 ${
+                        transaction.type === "Deposit"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {transactionsData.type}
+                    </td>
+                    <td
+                      className={`border border-gray-300 px-4 py-2 ${
+                        transaction.type === "Deposit"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      ${transactionsData.amount.toFixed(2)}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      ${transactionsData.balanceAfter.toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>
